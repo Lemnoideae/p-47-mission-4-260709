@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="AppTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-07-18T01:13:02.095Z" hostname="macui-MacBookPro.local" time="0.084">
+  <properties/>
+  <testcase name="1단계: 종료" classname="AppTest" time="0.049"/>
+  <testcase name="2단계: 등록" classname="AppTest" time="0.003"/>
+  <testcase name="3단계: 등록시 생성된 명언번호 노출" classname="AppTest" time="0.002"/>
+  <testcase name="4단계: 등록할 때마다 생성되는 명언번호가 증가" classname="AppTest" time="0.002"/>
+  <testcase name="5단계: 목록" classname="AppTest" time="0.004"/>
+  <testcase name="6단계: 1번 명언 삭제" classname="AppTest" time="0.002"/>
+  <testcase name="7단계: 존재하지 않는 명언 삭제에 대한 예외처리" classname="AppTest" time="0.002"/>
+  <testcase name="8단계: 명언 수정" classname="AppTest" time="0.002"/>
+  <testcase name="9단계: 파일을 통한 영속성" classname="AppTest" time="0.004"/>
+  <testcase name="10단계: data.json 빌드 및 불러오기 검증" classname="AppTest" time="0.005"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
