@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
-    public void run() {
+    public void run() throws IOException {
         controller.printEntranceMessage();
         while (true) {
             int[] cmd_nums = controller.printAndInputCommand();

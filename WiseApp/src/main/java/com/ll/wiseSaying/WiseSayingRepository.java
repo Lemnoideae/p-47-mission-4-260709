@@ -25,6 +25,7 @@ public class WiseSayingRepository {
     }
     public int getNewIdNum() { return new_id_num; }
     public boolean isWiseContains(int id) { return wise_map.containsKey(id); }
+    public boolean isWiseMapEmpty() { return wise_map.isEmpty(); }
     public TreeMap<Integer, WiseSaying> getWiseMap() { return wise_map; }
     public final WiseSaying getWiseById(int id) { return wise_map.get(id); }
 
@@ -36,6 +37,10 @@ public class WiseSayingRepository {
 
     public void modifyWise(int id, String new_content, String new_author) {
         wise_map.get(id).modifyWise(new_content, new_author);
+    }
+    public void buildJson(String json_str) throws IOException {
+        Files.writeString(last_id_path, wise_map.lastKey().toString());
+        Files.writeString(data_path, json_str);
     }
 
     // Private :

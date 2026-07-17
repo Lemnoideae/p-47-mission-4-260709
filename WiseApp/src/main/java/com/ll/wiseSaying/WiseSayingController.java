@@ -1,5 +1,6 @@
 package com.ll.wiseSaying;
 
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -61,8 +62,8 @@ public class WiseSayingController {
 
         service.modifyWise(id, new_content, new_author);
     }
-    public void buildJson() {
-        service.buildJson();
+    public void buildJson() throws IOException {
+        service.buildJson(); printJsonBuildCompleted();
     }
 
     // Print Message | Error
@@ -92,6 +93,9 @@ public class WiseSayingController {
     }
     public void printRemoveCommandCompleted(final int id) {
         System.out.println(id + "번 명언이 삭제되었습니다.");
+    }
+    public void printJsonBuildCompleted() {
+        System.out.println("data.json 파일의 내용이 갱신되었습니다.");
     }
 
     // Private

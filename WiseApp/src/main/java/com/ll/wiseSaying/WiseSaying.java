@@ -17,6 +17,7 @@ public class WiseSaying implements Comparable<WiseSaying> {
         this.author = new_author;
     }
 
+    public int getId() { return id; }
     public String getContent() { return content; }
     public String getAuthor() { return author; }
 
@@ -24,4 +25,5 @@ public class WiseSaying implements Comparable<WiseSaying> {
     private final int id;
     private String content;
     private String author;
+
 }

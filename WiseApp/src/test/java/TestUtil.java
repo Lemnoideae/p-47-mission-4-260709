@@ -1,5 +1,6 @@
 import java.io.*;
-import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Scanner;
 
 public class TestUtil {
@@ -19,5 +20,9 @@ public class TestUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+    public static void clearDatabase() throws IOException {
+        Files.writeString(Path.of("db/wiseSaying/lastId.txt"), "0");
+        Files.writeString(Path.of("db/wiseSaying/data.json"), "[]");
     }
 }
