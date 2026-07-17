@@ -1,18 +1,20 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.io.IOException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class AppTest {
     @Test
     @DisplayName("1단계: 종료")
-    void t1() {
+    void t1() throws IOException {
         String out = AppTestRunner.run("종료");
         assertThat(out).contains("== 명언 앱 ==");
     }
     @Test
     @DisplayName("2단계: 등록")
-    void t2() {
+    void t2() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -25,7 +27,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("3단계: 등록시 생성된 명언번호 노출")
-    void t3() {
+    void t3() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -39,7 +41,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("4단계: 등록할 때마다 생성되는 명언번호가 증가")
-    void t4() {
+    void t4() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -58,7 +60,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("5단계: 목록")
-    void t5() {
+    void t5() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -82,7 +84,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("6단계: 1번 명언 삭제")
-    void t6() {
+    void t6() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -108,7 +110,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("7단계: 존재하지 않는 명언 삭제에 대한 예외처리")
-    void t7() {
+    void t7() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -136,7 +138,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("8단계: 명언 수정")
-    void t8() {
+    void t8() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -178,7 +180,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("9단계: 파일을 통한 영속성")
-    void t9() {
+    void t9() throws IOException {
         String out1 = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.
@@ -218,7 +220,7 @@ public class AppTest {
     }
     @Test
     @DisplayName("10단계: data.json 빌드")
-    void t10() {
+    void t10() throws IOException {
         String out = AppTestRunner.run("""
                 등록
                 현재를 사랑하라.

@@ -26,22 +26,40 @@ public class WiseSayingController {
     public WiseSayingController(Scanner scanner, WiseSayingService service) {
         this.scanner = scanner;
         this.service = service;
-        this.modify_ptn = Pattern.compile("수정\\?=id(\\d+)");
-        this.remove_ptn = Pattern.compile("삭제\\?=id(\\d+)");
+        this.modify_ptn = Pattern.compile("수정\\?id=(\\d+)");
+        this.remove_ptn = Pattern.compile("삭제\\?id=(\\d+)");
     }
 
     // To Service
     public void addWise() {
-        service.addWise();
+        String new_content = printAndInputContent();
+        String new_author = printAndInputAuthor();
+        int wise_id = service.createWiseAndGetId(new_content, new_author);
+        printAddCommandCompleted(wise_id);
     }
     public void showList() {
-        service.showList();
+        System.out.println("번호 / 작가 / 명언");
+        System.out.println("----------------------");
+        System.out.print(service.getWiseList());
     }
-    public void removeWise() {
-        service.removeWise();
+    public void removeWise(int id) {
+        if (service.isWiseContains(id)) {
+            service.removeWise(id);
+            printRemoveCommandCompleted(id);
+        }
+        else printWiseIsNotExists(id);
     }
-    public void modifyWise() {
-        service.modifyWise();
+    public void modifyWise(int id) {
+        if (!service.isWiseContains(id)) { printWiseIsNotExists(id); return;}
+        WiseSaying current_wise = service.getWiseById(id);
+
+        printPreviousContent(current_wise.getContent());
+        String new_content = printAndInputContent();
+
+        printPreviousAuthor(current_wise.getAuthor());
+        String new_author = printAndInputAuthor();
+
+        service.modifyWise(id, new_content, new_author);
     }
     public void buildJson() {
         service.buildJson();
@@ -53,6 +71,27 @@ public class WiseSayingController {
     }
     public void printCommandIsNotExists() {
         System.out.println("존재하지 않는 명령입니다.");
+    }
+    public void printWiseIsNotExists(int id) {
+        System.out.println(id + "번 명언은 존재하지 않습니다.");
+    }
+    public void printPreviousContent(String content) {
+        System.out.println("명언(기존) : " + content);
+    }
+    public void printPreviousAuthor(String author) {
+        System.out.println("작가(기존) : " + author);
+    }
+    public String printAndInputContent() {
+        System.out.print("명언 : "); return scanner.nextLine().trim();
+    }
+    public String printAndInputAuthor() {
+        System.out.print("작가 : "); return scanner.nextLine().trim();
+    }
+    public void printAddCommandCompleted(final int id) {
+        System.out.println(id + "번 명언이 등록되었습니다.");
+    }
+    public void printRemoveCommandCompleted(final int id) {
+        System.out.println(id + "번 명언이 삭제되었습니다.");
     }
 
     // Private

@@ -17,7 +17,6 @@ public class WiseSaying implements Comparable<WiseSaying> {
         this.author = new_author;
     }
 
-    public int getId() { return id; }
     public String getContent() { return content; }
     public String getAuthor() { return author; }
 

@@ -1,10 +1,11 @@
 import com.ll.wiseSaying.App;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class AppTestRunner {
-    public static String run(String input) {
+    public static String run(String input) throws IOException {
         String finalInput;
         if (input == null || input.isEmpty() || input.equals("종료"))
             finalInput = "종료\n";
