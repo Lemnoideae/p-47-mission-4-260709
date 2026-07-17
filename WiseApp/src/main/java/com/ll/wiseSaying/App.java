@@ -10,7 +10,7 @@ public class App {
         while (true) {
             int[] cmd_nums = controller.printAndInputCommand();
             switch (cmd_nums[0]) {
-                case 0: System.exit(0);
+                case 0: return;
                 case 1: controller.addWise(); break;
                 case 2: controller.showList(); break;
                 case 3: controller.removeWise(); break;

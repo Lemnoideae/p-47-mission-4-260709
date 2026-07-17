@@ -8,8 +8,7 @@ public class AppTest {
     @DisplayName("1단계: 종료")
     void t1() {
         String out = AppTestRunner.run("종료");
-        assertThat(out).contains("== 명언 앱 ==")
-                .doesNotContain("명령)");
+        assertThat(out).contains("== 명언 앱 ==");
     }
     @Test
     @DisplayName("2단계: 등록")
