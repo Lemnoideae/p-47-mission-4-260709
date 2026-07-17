@@ -1,8 +1,8 @@
 package com.ll.wiseSaying;
 
-class WiseSaying implements Comparable<WiseSaying> {
+public class WiseSaying implements Comparable<WiseSaying> {
     // public
-    WiseSaying(final int id, String content, String author) {
+    public WiseSaying(final int id, String content, String author) {
         this.id = id;
         this.content = content;
         this.author = author;
@@ -12,14 +12,14 @@ class WiseSaying implements Comparable<WiseSaying> {
     @Override
     public int compareTo(WiseSaying w) { return this.id - w.id; }
 
-    void modifyWise(String new_content, String new_author) {
+    public void modifyWise(String new_content, String new_author) {
         this.content = new_content;
         this.author = new_author;
     }
 
-    int getId() { return id; }
-    String getContent() { return content; }
-    String getAuthor() { return author; }
+    public int getId() { return id; }
+    public String getContent() { return content; }
+    public String getAuthor() { return author; }
 
     // private
     private final int id;
