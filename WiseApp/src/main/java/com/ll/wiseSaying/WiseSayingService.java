@@ -1,6 +1,9 @@
 package com.ll.wiseSaying;
 
 import java.io.IOException;
+import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public class WiseSayingService {
     public WiseSayingService(WiseSayingRepository repository) {
@@ -17,10 +20,23 @@ public class WiseSayingService {
     }
 
     String getWiseList() {
-        sb.setLength(0);
-        for (WiseSaying wise : repository.getWiseMap().descendingMap().values())
-            sb.append(wise.toString()).append("\n");
-        return sb.toString();
+        return repository.getWiseMap().descendingMap().values().stream()
+                .map(WiseSaying::toString)
+                .collect(Collectors.joining("\n"));
+    }
+
+    String getWiseList(Command cmd) {
+        Predicate<WiseSaying> filter_condition = switch (cmd.keyword_type) {
+            case "content" -> wise -> wise.getContent().contains(cmd.keyword);
+            case "author" -> wise -> wise.getAuthor().contains(cmd.keyword);
+            default -> throw new IllegalStateException(
+                    "Unexpected value: " + cmd.keyword_type);
+        };
+
+        return repository.getWiseMap().descendingMap().values().stream()
+                .filter(filter_condition)
+                .map(WiseSaying::toString)
+                .collect(Collectors.joining("\n"));
     }
 
     void removeWise(int id) { repository.removeWise(id); }

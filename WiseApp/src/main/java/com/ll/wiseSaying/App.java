@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class App {
     public void run() throws IOException {
-        controller.printEntranceMessage();
+        controller.msg.printEntranceMessage();
         while (is_app_working) loopStart();
     }
     public App(Scanner scanner) throws IOException {
@@ -18,26 +18,15 @@ public class App {
 
     // Private :
     private void loopStart() throws IOException {
-        int[] cmd_nums = controller.printAndInputCommand();
-        switch (cmd_nums[0]) {
-            case 0: is_app_working = false; return;
-            case 1: controller.addWise(); break;
-            case 2: controller.showList(); break;
-            case 3:
-                controller.removeWise(cmd_nums[1]);
-                break;
-            case 4:
-                controller.modifyWise(cmd_nums[1]);
-                break;
-            case 5:
-                controller.buildJson();
-                break;
-            case -1:
-                controller.printCommandIsNotExists();
-                break;
-            default:
-                throw new IllegalArgumentException(
-                        "Unknown command: " + cmd_nums[0]);
+        final Command cmd = controller.printAndInputCommand();
+        switch (cmd.command_id) {
+            case EXIT: is_app_working = false; return;
+            case ADD: controller.addWise(); break;
+            case SHOW: controller.showList(cmd); break;
+            case REMOVE: controller.removeWise(cmd.target_wise_id); break;
+            case MODIFY: controller.modifyWise(cmd.target_wise_id); break;
+            case BUILD: controller.buildJson(); break;
+            case ERROR: controller.msg.printCommandIsNotExists(); break;
         }
     }
 
