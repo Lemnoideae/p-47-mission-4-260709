@@ -103,5 +103,4 @@ public class WiseSayingController {
     private final Pattern modify_ptn;
     private final Scanner scanner;
     private final WiseSayingService service;
-
 }
