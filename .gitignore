@@ -1,0 +1,7 @@
+WiseApp/.gradle/
+WiseApp/build/
+WiseApp/gradle/
+WiseApp/gradlew
+WiseApp/gradlew.bat
+WiseApp/out/
+WiseApp/settings.gradle.kts
