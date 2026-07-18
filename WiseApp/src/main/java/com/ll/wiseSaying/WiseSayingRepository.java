@@ -24,16 +24,19 @@ public class WiseSayingRepository {
             this.wise_map = initMap(json_str);
     }
     public int getNewIdNum() { return new_id_num; }
+    public final WiseSaying getWiseById(int id) { return wise_map.get(id); }
+    public TreeMap<Integer, WiseSaying> getWiseMap() { return wise_map; }
+
     public boolean isWiseContains(int id) { return wise_map.containsKey(id); }
     public boolean isWiseMapEmpty() { return wise_map.isEmpty(); }
-    public TreeMap<Integer, WiseSaying> getWiseMap() { return wise_map; }
-    public final WiseSaying getWiseById(int id) { return wise_map.get(id); }
 
     public void addWise(WiseSaying new_wise) {
         wise_map.put(new_id_num, new_wise);
         new_id_num++;
     }
-    public void removeWise(int id) { wise_map.remove(id); }
+    public void removeWise(int id) {
+        wise_map.remove(id);
+    }
 
     public void modifyWise(int id, String new_content, String new_author) {
         wise_map.get(id).modifyWise(new_content, new_author);
@@ -73,5 +76,4 @@ public class WiseSayingRepository {
     private final Path data_path;
     private Integer new_id_num;
     private final TreeMap<Integer, WiseSaying> wise_map;
-
 }

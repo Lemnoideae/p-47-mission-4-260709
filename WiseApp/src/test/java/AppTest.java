@@ -11,6 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class AppTest {
 
     private static final Path DATA_JSON_PATH = Path.of("db/wiseSaying/data.json");
+    private static final Path LAST_ID_PATH = Path.of("db/wiseSaying/lastId.txt");
 
     @BeforeEach
     void setUp() throws IOException {
@@ -193,7 +194,7 @@ public class AppTest {
                 .contains("1 / 홍길동 / 현재와 자신을 사랑하라.");
     }
 
-    // 11, 12단계는 TDD 관련.
+    // 11, 12단계는 TDD 구현 관련.
 
     @Test
     @DisplayName("13단계: 검색")
@@ -231,7 +232,11 @@ public class AppTest {
     @Test
     @DisplayName("14단계: 페이징")
     void t14() throws IOException {
-        // 초기에 샘플 데이터 명언 필요.
+        Files.writeString(LAST_ID_PATH, Files.readString(
+                Path.of("db/testDb/14tLastId.txt")));
+        Files.writeString(DATA_JSON_PATH, Files.readString(
+                Path.of("db/testDb/14t.json")));
+
         String out = AppTestRunner.run("""
                 목록
                 목록?page=2

@@ -4,11 +4,27 @@ import java.util.Scanner;
 
 public class MessagePrinter {
     public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
+
     public void printOneDashLine() { System.out.println("----------------------"); }
+
     public void printAttributes() { System.out.println("번호 / 작가 / 명언"); }
+
+    public void printPageLine(int current_page, int total_pages) {
+        System.out.print("페이지 : ");
+        if (current_page == 1) System.out.print("[1]");
+        else System.out.print("1");
+
+        for (int page = 2; page <= total_pages; page++) {
+            System.out.print(" / ");
+            if (current_page == page) System.out.print("[" + page + "]");
+            else System.out.print(page);
+        }
+    }
+
     public void printCommandIsNotExists() {
         System.out.println("존재하지 않는 명령입니다.");
     }
+
     public void printWiseIsNotExists(int id) {
         System.out.println(id + "번 명언은 존재하지 않습니다.");
     }

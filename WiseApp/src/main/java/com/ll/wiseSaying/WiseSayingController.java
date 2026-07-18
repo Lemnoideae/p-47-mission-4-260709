@@ -15,6 +15,11 @@ public class WiseSayingController {
             case "빌드": return new Command(CommandId.BUILD);
         }
         Matcher cmd_mth;
+        cmd_mth = regex_ptns.show_cmd_with_pages.matcher(cmd);
+        if (cmd_mth.find())
+            return new Command(CommandId.SHOW, -1,
+                    Integer.parseInt( cmd_mth.group(1) ));
+
         cmd_mth = regex_ptns.search_cmd.matcher(cmd);
         if (cmd_mth.find())
             return new Command(CommandId.SHOW, cmd_mth.group(1),  cmd_mth.group(2));
@@ -44,10 +49,14 @@ public class WiseSayingController {
         msg.printAddCommandCompleted(wise_id);
     }
     public void showList(Command cmd) {
+        WiseSayingService.PageDto<WiseSaying> page_dto = service.getPagedList(cmd);
+
         if (!cmd.isAppMustSearchWiseByKeyword()) {
             msg.printAttributes();
             msg.printOneDashLine();
-            System.out.print(service.getWiseList());
+            System.out.print(service.getListString(page_dto.wise_list()));
+            msg.printOneDashLine();
+            msg.printPageLine(page_dto.current_pages(), page_dto.max_pages());
             return;
         }
         msg.printOneDashLine();
@@ -57,7 +66,9 @@ public class WiseSayingController {
 
         msg.printAttributes();
         msg.printOneDashLine();
-        System.out.print(service.getWiseList(cmd));
+        System.out.print(service.getListString(page_dto.wise_list()));
+        msg.printOneDashLine();
+        msg.printPageLine(page_dto.current_pages(), page_dto.max_pages());
     }
     public void removeWise(int id) {
         if (service.isWiseContains(id)) {
