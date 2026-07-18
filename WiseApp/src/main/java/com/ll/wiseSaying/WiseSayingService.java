@@ -1,7 +1,6 @@
 package com.ll.wiseSaying;
 
 import java.io.IOException;
-import java.util.Objects;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
