@@ -3,12 +3,6 @@ package com.ll.wiseSaying;
 import java.util.Scanner;
 
 public class MessagePrinter {
-    public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
-
-    public void printOneDashLine() { System.out.println("----------------------"); }
-
-    public void printAttributes() { System.out.println("번호 / 작가 / 명언"); }
-
     public void printPageLine(int current_page, int total_pages) {
         System.out.print("페이지 : ");
         if (current_page == 1) System.out.print("[1]");
@@ -20,7 +14,6 @@ public class MessagePrinter {
             else System.out.print(page);
         }
     }
-
     public void printSearchedKeyword(Command cmd) {
         printOneDashLine();
         printKeywordType(cmd.keyword_type);
@@ -34,6 +27,12 @@ public class MessagePrinter {
         printOneDashLine();
         printPageLine(page_dto.current_pages(), page_dto.max_pages());
     }
+
+    public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
+
+    public void printOneDashLine() { System.out.println("----------------------"); }
+
+    public void printAttributes() { System.out.println("번호 / 작가 / 명언"); }
 
     public void printCommandIsNotExists() {
         System.out.println("존재하지 않는 명령입니다.");
@@ -57,7 +56,6 @@ public class MessagePrinter {
     }
 
     public void printKeywordType(String type) { System.out.println("검색 타입 : " + type); }
-
     public void printKeyword(String keyword) { System.out.println("검색어 : " + keyword); }
 
     public void printAddCommandCompleted(final int id) {
