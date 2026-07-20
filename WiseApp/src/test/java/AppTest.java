@@ -262,5 +262,7 @@ public class AppTest {
                 .contains("1 / 작자미상 1 / 명언 1")
                 .contains("----------------------")
                 .contains("페이지 : 1 / [2]");
+
+        TestUtil.clearDatabase();
     }
 }
