@@ -1,6 +1,7 @@
 package com.ll.wiseSaying;
 
 import java.util.Scanner;
+import com.ll.wiseSaying.WiseSayingService.PageDto;
 
 public class MessagePrinter {
     public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
@@ -19,6 +20,20 @@ public class MessagePrinter {
             if (current_page == page) System.out.print("[" + page + "]");
             else System.out.print(page);
         }
+    }
+
+    public void printSearchedKeyword(Command cmd) {
+        printOneDashLine();
+        printKeywordType(cmd.keyword_type);
+        printKeyword(cmd.keyword);
+        printOneDashLine();
+    }
+    public void printListString(String list_str, PageDto page_dto) {
+        printAttributes();
+        printOneDashLine();
+        System.out.print(list_str);
+        printOneDashLine();
+        printPageLine(page_dto.current_pages(), page_dto.max_pages());
     }
 
     public void printCommandIsNotExists() {

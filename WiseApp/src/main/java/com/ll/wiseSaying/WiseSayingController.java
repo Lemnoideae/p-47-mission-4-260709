@@ -5,6 +5,12 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 
 public class WiseSayingController {
+    private final RegexPatterns regex_ptns;
+    private final Scanner scanner;
+    private final WiseSayingService service;
+
+    public final MessagePrinter msg;
+
     public Command printAndInputCommand() {
         System.out.print("명령) ");
         String cmd = scanner.nextLine().trim();
@@ -51,24 +57,9 @@ public class WiseSayingController {
     public void showList(Command cmd) {
         WiseSayingService.PageDto<WiseSaying> page_dto = service.getPagedList(cmd);
 
-        if (!cmd.isAppMustSearchWiseByKeyword()) {
-            msg.printAttributes();
-            msg.printOneDashLine();
-            System.out.print(service.getListString(page_dto.wise_list()));
-            msg.printOneDashLine();
-            msg.printPageLine(page_dto.current_pages(), page_dto.max_pages());
-            return;
-        }
-        msg.printOneDashLine();
-        msg.printKeywordType(cmd.keyword_type);
-        msg.printKeyword(cmd.keyword);
-        msg.printOneDashLine();
-
-        msg.printAttributes();
-        msg.printOneDashLine();
-        System.out.print(service.getListString(page_dto.wise_list()));
-        msg.printOneDashLine();
-        msg.printPageLine(page_dto.current_pages(), page_dto.max_pages());
+        if (cmd.isAppMustSearchWiseByKeyword()) msg.printSearchedKeyword(cmd);
+        msg.printListString(
+                service.getListString(page_dto.wise_list()), page_dto);
     }
     public void removeWise(int id) {
         if (service.isWiseContains(id)) {
@@ -93,10 +84,4 @@ public class WiseSayingController {
         service.buildJson(); msg.printJsonBuildCompleted();
     }
 
-    final MessagePrinter msg;
-    // Private
-
-    private final RegexPatterns regex_ptns;
-    private final Scanner scanner;
-    private final WiseSayingService service;
 }
