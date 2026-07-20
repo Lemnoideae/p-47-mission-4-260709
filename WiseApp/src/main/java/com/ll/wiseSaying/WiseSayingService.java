@@ -14,8 +14,6 @@ public class WiseSayingService {
         this.sb = new StringBuilder();
         this.WISES_PER_PAGE = 5;
     }
-    record PageDto<WiseSaying>(List<WiseSaying> wise_list,
-                                      int current_pages, int max_pages) {}
 
     final WiseSaying getWiseById(int id) { return repository.getWiseById(id); }
     boolean isWiseContains(int id) { return repository.isWiseContains(id); }

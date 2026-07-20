@@ -1,7 +1,6 @@
 package com.ll.wiseSaying;
 
 import java.util.Scanner;
-import com.ll.wiseSaying.WiseSayingService.PageDto;
 
 public class MessagePrinter {
     public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
@@ -28,7 +27,7 @@ public class MessagePrinter {
         printKeyword(cmd.keyword);
         printOneDashLine();
     }
-    public void printListString(String list_str, PageDto page_dto) {
+    public void printListString(PageDto<WiseSaying> page_dto, String list_str) {
         printAttributes();
         printOneDashLine();
         System.out.print(list_str);

@@ -55,11 +55,9 @@ public class WiseSayingController {
         msg.printAddCommandCompleted(wise_id);
     }
     public void showList(Command cmd) {
-        WiseSayingService.PageDto<WiseSaying> page_dto = service.getPagedList(cmd);
-
+        PageDto<WiseSaying> page_dto = service.getPagedList(cmd);
         if (cmd.isAppMustSearchWiseByKeyword()) msg.printSearchedKeyword(cmd);
-        msg.printListString(
-                service.getListString(page_dto.wise_list()), page_dto);
+        msg.printListString(page_dto, service.getListString(page_dto.wise_list()));
     }
     public void removeWise(int id) {
         if (service.isWiseContains(id)) {
