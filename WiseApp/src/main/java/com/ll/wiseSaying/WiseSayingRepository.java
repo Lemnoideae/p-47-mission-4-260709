@@ -9,6 +9,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WiseSayingRepository {
+    private final TreeMap<Integer, WiseSaying> wise_map;
+    private Integer new_id_num;
+    private final Path last_id_path;
+    private final Path data_path;
+
     public WiseSayingRepository(String last_id_path, String data_path)
             throws IOException {
         this.last_id_path = Path.of(last_id_path);
@@ -46,7 +51,6 @@ public class WiseSayingRepository {
         Files.writeString(data_path, json_str);
     }
 
-    // Private :
     private void checkDbPath() throws FileNotFoundException {
         if (Files.notExists(last_id_path))
             throw new FileNotFoundException(last_id_path.toString());
@@ -72,8 +76,4 @@ public class WiseSayingRepository {
         }
         return map;
     }
-    private final Path last_id_path;
-    private final Path data_path;
-    private Integer new_id_num;
-    private final TreeMap<Integer, WiseSaying> wise_map;
 }

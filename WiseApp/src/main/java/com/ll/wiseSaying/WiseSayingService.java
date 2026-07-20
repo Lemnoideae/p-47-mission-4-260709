@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.function.Predicate;
 
 public class WiseSayingService {
+    private final WiseSayingRepository repository;
+    private final StringBuilder sb;
+    private final int WISES_PER_PAGE;
+
     public WiseSayingService(WiseSayingRepository repository) {
         this.repository = repository;
         this.sb = new StringBuilder();
@@ -80,11 +84,7 @@ public class WiseSayingService {
         repository.buildJson(sb.toString());
     }
 
-    // Private
     private int updateMaxPages(int total_wises) {
         return Math.max(1, (int) Math.ceil((double) total_wises / WISES_PER_PAGE));
     }
-    private final int WISES_PER_PAGE;
-    private final StringBuilder sb;
-    private final WiseSayingRepository repository;
 }

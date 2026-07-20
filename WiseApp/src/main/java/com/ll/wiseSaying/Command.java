@@ -1,6 +1,18 @@
 package com.ll.wiseSaying;
 
 public class Command {
+    public final CommandId command_id;
+    public final Integer target_wise_id;
+    public final Integer page_number;
+    public final String keyword_type;
+    public final String keyword;
+
+    private static final int DEFAULT_ID = -1;
+    private static final int DEFAULT_PAGE = 1;
+    private static final String DEFAULT_TYPE = "";
+    private static final String DEFAULT_KEYWORD = "";
+    private boolean is_app_must_search_wise_by_keyword;
+
     public Command(CommandId cmd_id, int target_wise_id, int page_number,
                    String keyword_type, String keyword) {
         this.command_id = cmd_id;
@@ -27,17 +39,4 @@ public class Command {
     public final boolean isAppMustSearchWiseByKeyword() {
         return is_app_must_search_wise_by_keyword;
     }
-
-    public final String keyword_type;
-    public final String keyword;
-    public final Integer page_number;
-    public final Integer target_wise_id;
-    public final CommandId command_id;
-
-    // Private
-    private boolean is_app_must_search_wise_by_keyword;
-    private static final String DEFAULT_KEYWORD = "";
-    private static final String DEFAULT_TYPE = "";
-    private static final int DEFAULT_PAGE = 1;
-    private static final int DEFAULT_ID = -1;
 }

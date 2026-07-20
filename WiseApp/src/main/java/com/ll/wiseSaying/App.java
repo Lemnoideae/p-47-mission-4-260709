@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class App {
+    private final WiseSayingController controller;
+    private boolean is_app_working;
+
     public void run() throws IOException {
         controller.msg.printEntranceMessage();
         while (is_app_working) loopStart();
@@ -16,7 +19,6 @@ public class App {
                         "db/wiseSaying/data.json")));
     }
 
-    // Private :
     private void loopStart() throws IOException {
         final Command cmd = controller.printAndInputCommand();
         switch (cmd.command_id) {
@@ -29,7 +31,4 @@ public class App {
             case ERROR: controller.msg.printCommandIsNotExists(); break;
         }
     }
-
-    private boolean is_app_working;
-    private final WiseSayingController controller;
 }
