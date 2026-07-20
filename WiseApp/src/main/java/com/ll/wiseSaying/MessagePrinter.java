@@ -42,18 +42,20 @@ public class MessagePrinter {
     public void printWiseIsNotExists(int id) {
         System.out.println(id + "번 명언은 존재하지 않습니다.");
     }
-    public void printPreviousContent(String content) {
-        System.out.println("명언(기존) : " + content);
-    }
-    public void printPreviousAuthor(String author) {
-        System.out.println("작가(기존) : " + author);
-    }
+
     public String printAndInputContent(Scanner scanner) {
         System.out.print("명언 : "); return scanner.nextLine().trim();
+    }
+    public String printAndInputNewContent(String content, Scanner scanner) {
+        System.out.println("명언(기존) : " + content); return printAndInputContent(scanner);
     }
     public String printAndInputAuthor(Scanner scanner) {
         System.out.print("작가 : "); return scanner.nextLine().trim();
     }
+    public String printAndInputNewAuthor(String author, Scanner scanner) {
+        System.out.println("작가(기존) : " + author); return printAndInputContent(scanner);
+    }
+
     public void printKeywordType(String type) { System.out.println("검색 타입 : " + type); }
 
     public void printKeyword(String keyword) { System.out.println("검색어 : " + keyword); }

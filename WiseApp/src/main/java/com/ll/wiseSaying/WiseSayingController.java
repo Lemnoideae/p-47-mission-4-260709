@@ -70,11 +70,10 @@ public class WiseSayingController {
         if (!service.isWiseContains(id)) { msg.printWiseIsNotExists(id); return;}
         WiseSaying current_wise = service.getWiseById(id);
 
-        msg.printPreviousContent(current_wise.getContent());
-        String new_content = msg.printAndInputContent(scanner);
-
-        msg.printPreviousAuthor(current_wise.getAuthor());
-        String new_author = msg.printAndInputAuthor(scanner);
+        String new_content =
+                msg.printAndInputNewContent(current_wise.getContent(), scanner);
+        String new_author =
+                msg.printAndInputNewAuthor(current_wise.getAuthor(), scanner);
 
         service.modifyWise(id, new_content, new_author);
     }
