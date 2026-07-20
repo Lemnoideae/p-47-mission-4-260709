@@ -13,6 +13,7 @@ public class MessagePrinter {
             if (current_page == page) System.out.print("[" + page + "]");
             else System.out.print(page);
         }
+        System.out.println();
     }
     public void printSearchedKeyword(Command cmd) {
         printOneDashLine();
