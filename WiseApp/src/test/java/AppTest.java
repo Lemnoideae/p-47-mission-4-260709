@@ -154,9 +154,9 @@ public class AppTest {
                 빌드
                 """);
 
-        String json_str = Files.readString(DATA_JSON_PATH);
+        String jsonStr = Files.readString(DATA_JSON_PATH);
 
-        assertThat(json_str)
+        assertThat(jsonStr)
                 .contains("[")
                 .contains("  {")
                 .contains("    \"id\": 1")

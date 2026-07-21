@@ -24,8 +24,8 @@ public class WiseSayingController {
     public void addWise() {
         String newContent = msg.printAndInputContent(scanner);
         String newAuthor = msg.printAndInputAuthor(scanner);
-        int wise_id = service.createWiseAndGetId(newContent, newAuthor);
-        msg.printAddCommandCompleted(wise_id);
+        int wiseId = service.createWiseAndGetId(newContent, newAuthor);
+        msg.printAddCommandCompleted(wiseId);
     }
     public void showList(Rq rq) {
         PageDto<WiseSaying> pageDto = service.getPagedList(rq);

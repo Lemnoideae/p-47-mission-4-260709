@@ -32,23 +32,23 @@ public class WiseSayingService {
             case "author" -> wise -> wise.getAuthor().contains(keyword);
             default -> _ -> true;
         };
-        List<WiseSaying> filtered_list = repository.getWiseMap().descendingMap().values()
+        List<WiseSaying> filteredList = repository.getWiseMap().descendingMap().values()
                         .stream().filter(filterCondition).toList();
 
-        final int totalWise = filtered_list.size();
+        final int totalWise = filteredList.size();
         final int currentPages = rq.getIntParam("page");
         final int maxPages = updateMaxPages(totalWise);
 
-        List<WiseSaying> pagedList = filtered_list.stream()
+        List<WiseSaying> pagedList = filteredList.stream()
                 .skip((long) (currentPages - 1) * WISES_PER_PAGE)
                 .limit(WISES_PER_PAGE)
                 .toList();
 
         return new PageDto<>(pagedList, currentPages, maxPages);
     }
-    String getListString(List<WiseSaying> wise_list) {
+    String getListString(List<WiseSaying> wiseList) {
         sb.setLength(0);
-        for (WiseSaying wise : wise_list) sb.append(wise).append("\n");
+        for (WiseSaying wise : wiseList) sb.append(wise).append("\n");
         return sb.toString();
     }
 
