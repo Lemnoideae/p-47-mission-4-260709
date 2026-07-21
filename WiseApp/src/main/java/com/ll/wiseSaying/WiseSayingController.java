@@ -32,6 +32,7 @@ public class WiseSayingController {
         if (rq.doesRequestContainsParam("keywordType") &&
             rq.doesRequestContainsParam("keyword"))
             msg.printSearchedKeyword(rq);
+
         msg.printListString(pageDto, service.getListString(pageDto.wiseList()));
     }
     public void removeWise(int id) {
@@ -53,7 +54,8 @@ public class WiseSayingController {
         service.modifyWise(id, newContent, newAuthor);
     }
     public void buildJson() throws IOException {
-        service.buildJson(); msg.printJsonBuildCompleted();
+        service.buildJson();
+        msg.printJsonBuildCompleted();
     }
 
 }
