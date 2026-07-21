@@ -21,13 +21,13 @@ public class App {
     }
 
     private void loopStart() throws IOException {
-        final Command cmd = controller.printAndInputCommand();
-        switch (cmd.command_id) {
+        final Rq rq = controller.printAndInputRequest();
+        switch (rq.getCmd()) {
             case EXIT: is_app_working = false; return;
             case ADD: controller.addWise(); break;
-            case SHOW: controller.showList(cmd); break;
-            case REMOVE: controller.removeWise(cmd.target_wise_id); break;
-            case MODIFY: controller.modifyWise(cmd.target_wise_id); break;
+            case SHOW: controller.showList(rq); break;
+            case REMOVE: controller.removeWise(rq.getIntParam("id")); break;
+            case MODIFY: controller.modifyWise(rq.getIntParam("id")); break;
             case BUILD: controller.buildJson(); break;
             case ERROR: controller.msg.printCommandIsNotExists(); break;
         }

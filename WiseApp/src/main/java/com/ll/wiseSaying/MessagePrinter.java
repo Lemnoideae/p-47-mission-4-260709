@@ -15,10 +15,10 @@ public class MessagePrinter {
         }
         System.out.println();
     }
-    public void printSearchedKeyword(Command cmd) {
+    public void printSearchedKeyword(Rq rq) {
         printOneDashLine();
-        printKeywordType(cmd.keyword_type);
-        printKeyword(cmd.keyword);
+        printKeywordType(rq.getStringParam("keywordType"));
+        printKeyword(rq.getStringParam("keyword"));
         printOneDashLine();
     }
     public void printListString(PageDto<WiseSaying> page_dto, String list_str) {

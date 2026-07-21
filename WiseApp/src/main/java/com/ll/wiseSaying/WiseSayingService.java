@@ -24,17 +24,19 @@ public class WiseSayingService {
         return id;
     }
 
-    PageDto<WiseSaying> getPagedList(Command cmd) {
-        Predicate<WiseSaying> filter_condition = switch (cmd.keyword_type) {
-            case "content" -> wise -> wise.getContent().contains(cmd.keyword);
-            case "author" -> wise -> wise.getAuthor().contains(cmd.keyword);
+    PageDto<WiseSaying> getPagedList(Rq rq) {
+        String keyword = rq.getStringParam("keyword");
+        Predicate<WiseSaying> filter_condition =
+                switch (rq.getStringParam("keywordType")) {
+            case "content" -> wise -> wise.getContent().contains(keyword);
+            case "author" -> wise -> wise.getAuthor().contains(keyword);
             default -> _ -> true;
         };
         List<WiseSaying> filtered_list = repository.getWiseMap().descendingMap().values()
                         .stream().filter(filter_condition).toList();
 
         final int total_wise = filtered_list.size();
-        final int current_pages = cmd.page_number;
+        final int current_pages = rq.getIntParam("page");
         final int max_pages = updateMaxPages(total_wise);
 
         List<WiseSaying> paged_list = filtered_list.stream()
