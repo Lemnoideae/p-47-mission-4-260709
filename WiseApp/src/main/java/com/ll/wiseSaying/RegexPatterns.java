@@ -1,44 +1,36 @@
 package com.ll.wiseSaying;
 
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexPatterns {
-    private final Pattern jsonPattern;
-    private final Pattern idPattern;
-    private final Pattern keywordTypePattern;
-    private final Pattern keywordPattern;
-    private final Pattern pagePattern;
     private final String[] keyList;
+    private final HashMap<String, Pattern> patternMap;
 
     public RegexPatterns() {
-        this.jsonPattern = Pattern.compile("\\{" +
+        Pattern jsonPattern = Pattern.compile("\\{" +
                 "\\s*\"id\"\\s*:\\s*(\\d+)\\s*," +
                 "\\s*\"content\"\\s*:\\s*\"([^\"]*)\"\\s*," +
                 "\\s*\"author\"\\s*:\\s*\"([^\"]*)\"\\s*" +
                 "}");
 
-        this.idPattern = Pattern.compile("(id)=(\\d+)");
-        this.keywordTypePattern = Pattern.compile("(keywordType)=(.+)");
-        this.keywordPattern = Pattern.compile("(keyword)=(.+)");
-        this.pagePattern = Pattern.compile("(page)=(\\d+)");
+        this.patternMap = new HashMap<>();
+        this.patternMap.put("json", jsonPattern);
+        this.patternMap.put("id", Pattern.compile("(id)=(\\d+)"));
+        this.patternMap.put("keywordType", Pattern.compile("(keywordType)=(.+)"));
+        this.patternMap.put("keyword", Pattern.compile("(keyword)=(.+)"));
+        this.patternMap.put("page", Pattern.compile("(page)=(\\d+)"));
 
         this.keyList = new String[] {"id", "keywordType", "keyword", "page"};
     }
     public String[] getKeyList() { return keyList; }
 
     public Pattern getJsonPattern() {
-         return jsonPattern;
+         return patternMap.get("json");
     }
-
     public Matcher getPatternMatcher(String key, String arg) {
-        return switch (key) {
-            case "id" -> idPattern.matcher(arg);
-            case "keywordType" -> keywordTypePattern.matcher(arg);
-            case "keyword" -> keywordPattern.matcher(arg);
-            case "page" -> pagePattern.matcher(arg);
-            default -> throw new IllegalStateException("Unexpected value: " + arg);
-        };
+        if (patternMap.containsKey(key)) return patternMap.get(key).matcher(arg);
+        else throw new IllegalStateException("Unexpected value: " + arg);
     }
-
 }
