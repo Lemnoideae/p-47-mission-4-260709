@@ -15,7 +15,7 @@ public class App {
         isAppWorking = true;
         this.controller = new WiseSayingController(scanner,
                 new WiseSayingService(new WiseSayingRepository(
-                        new RegexPatterns().jsonPattern,
+                        new RegexPatterns().getJsonPattern(),
                         "db/wiseSaying/lastId.txt",
                         "db/wiseSaying/data.json")));
     }

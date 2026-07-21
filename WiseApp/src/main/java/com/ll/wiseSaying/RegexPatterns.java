@@ -4,11 +4,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexPatterns {
-    public final Pattern jsonPattern;
-    public final Pattern idPattern;
-    public final Pattern keywordTypePattern;
-    public final Pattern keywordPattern;
-    public final Pattern pagePattern;
+    private final Pattern jsonPattern;
+    private final Pattern idPattern;
+    private final Pattern keywordTypePattern;
+    private final Pattern keywordPattern;
+    private final Pattern pagePattern;
     private final String[] keyList;
 
     public RegexPatterns() {
@@ -26,6 +26,10 @@ public class RegexPatterns {
         this.keyList = new String[] {"id", "keywordType", "keyword", "page"};
     }
     public String[] getKeyList() { return keyList; }
+
+    public Pattern getJsonPattern() {
+         return jsonPattern;
+    }
 
     public Matcher getPatternMatcher(String key, String arg) {
         return switch (key) {

@@ -14,25 +14,20 @@ public class WiseSayingRepository {
     private final Path lastIdPath;
     private final Path dataPath;
 
-    public WiseSayingRepository(Pattern jsonPattern, String lastIdPath, String dataPath)
-            throws IOException {
+    public WiseSayingRepository(Pattern jsonPattern, String lastIdPath,
+                                String dataPath) throws IOException {
         this.lastIdPath = Path.of(lastIdPath);
         this.dataPath = Path.of(dataPath);
         checkDbPath();
 
         this.newIdNum = 1 + Integer.parseInt(Files.readString(this.lastIdPath));
-        String jsonStr = Files.readString(this.dataPath);
-
-        if (newIdNum == 1 || jsonStr.equals("[]"))
-            this.wiseMap = new TreeMap<>();
-        else
-            this.wiseMap = initMap(jsonPattern, jsonStr);
+        this.wiseMap = initMap(jsonPattern);
     }
     public int getNewIdNum() { return newIdNum; }
     public final WiseSaying getWiseById(int id) { return wiseMap.get(id); }
     public TreeMap<Integer, WiseSaying> getWiseMap() { return wiseMap; }
 
-    public boolean containsWise(int id) { return wiseMap.containsKey(id); }
+    public boolean doesMapContainWise(int id) { return wiseMap.containsKey(id); }
     public boolean isWiseMapEmpty() { return wiseMap.isEmpty(); }
 
     public void addWise(WiseSaying newWise) {
@@ -57,10 +52,14 @@ public class WiseSayingRepository {
         if (Files.notExists(dataPath))
             throw new FileNotFoundException(dataPath.toString());
     }
-    private TreeMap<Integer, WiseSaying> initMap(Pattern jsonPattern, String jsonStr) {
-        Matcher jsonMatcher = jsonPattern.matcher(jsonStr);
-
+    private TreeMap<Integer, WiseSaying> initMap(Pattern jsonPattern)
+            throws IOException {
         TreeMap<Integer, WiseSaying> map = new TreeMap<>();
+
+        String jsonStr = Files.readString(this.dataPath);
+        if (newIdNum == 1 || jsonStr.equals("[]")) return map;
+
+        Matcher jsonMatcher = jsonPattern.matcher(jsonStr);
         while (jsonMatcher.find()) {
             final int id = Integer.parseInt(jsonMatcher.group(1));
             final String content = jsonMatcher.group(2);
