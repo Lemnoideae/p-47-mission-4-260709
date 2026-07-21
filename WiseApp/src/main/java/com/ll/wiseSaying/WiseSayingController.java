@@ -35,14 +35,14 @@ public class WiseSayingController {
         msg.printListString(pageDto, service.getListString(pageDto.wiseList()));
     }
     public void removeWise(int id) {
-        if (service.isWiseContains(id)) {
+        if (service.containsWise(id)) {
             service.removeWise(id);
             msg.printRemoveCommandCompleted(id);
         }
         else msg.printWiseIsNotExists(id);
     }
     public void modifyWise(int id) {
-        if (!service.isWiseContains(id)) { msg.printWiseIsNotExists(id); return;}
+        if (!service.containsWise(id)) { msg.printWiseIsNotExists(id); return;}
         WiseSaying currentWise = service.getWiseById(id);
 
         String newContent =

@@ -16,7 +16,7 @@ public class WiseSayingService {
     }
 
     final WiseSaying getWiseById(int id) { return repository.getWiseById(id); }
-    boolean isWiseContains(int id) { return repository.isWiseContains(id); }
+    boolean containsWise(int id) { return repository.containsWise(id); }
 
     int createWiseAndGetId(String newContent, String newAuthor) {
         int id = repository.getNewIdNum();

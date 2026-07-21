@@ -32,7 +32,7 @@ public class WiseSayingRepository {
     public final WiseSaying getWiseById(int id) { return wiseMap.get(id); }
     public TreeMap<Integer, WiseSaying> getWiseMap() { return wiseMap; }
 
-    public boolean isWiseContains(int id) { return wiseMap.containsKey(id); }
+    public boolean containsWise(int id) { return wiseMap.containsKey(id); }
     public boolean isWiseMapEmpty() { return wiseMap.isEmpty(); }
 
     public void addWise(WiseSaying newWise) {
