@@ -19,8 +19,8 @@ public class WiseSaying implements Comparable<WiseSaying> {
     @Override
     public int compareTo(WiseSaying w) { return this.id - w.id; }
 
-    public void modifyWise(String new_content, String new_author) {
-        this.content = new_content;
-        this.author = new_author;
+    public void modifyWise(String newContent, String newAuthor) {
+        this.content = newContent;
+        this.author = newAuthor;
     }
 }

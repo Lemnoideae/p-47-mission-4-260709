@@ -22,17 +22,17 @@ public class WiseSayingController {
 
     // To Service
     public void addWise() {
-        String new_content = msg.printAndInputContent(scanner);
-        String new_author = msg.printAndInputAuthor(scanner);
-        int wise_id = service.createWiseAndGetId(new_content, new_author);
+        String newContent = msg.printAndInputContent(scanner);
+        String newAuthor = msg.printAndInputAuthor(scanner);
+        int wise_id = service.createWiseAndGetId(newContent, newAuthor);
         msg.printAddCommandCompleted(wise_id);
     }
     public void showList(Rq rq) {
-        PageDto<WiseSaying> page_dto = service.getPagedList(rq);
+        PageDto<WiseSaying> pageDto = service.getPagedList(rq);
         if (rq.doesRequestContainsParam("keywordType") &&
             rq.doesRequestContainsParam("keyword"))
             msg.printSearchedKeyword(rq);
-        msg.printListString(page_dto, service.getListString(page_dto.wise_list()));
+        msg.printListString(pageDto, service.getListString(pageDto.wiseList()));
     }
     public void removeWise(int id) {
         if (service.isWiseContains(id)) {
@@ -43,14 +43,14 @@ public class WiseSayingController {
     }
     public void modifyWise(int id) {
         if (!service.isWiseContains(id)) { msg.printWiseIsNotExists(id); return;}
-        WiseSaying current_wise = service.getWiseById(id);
+        WiseSaying currentWise = service.getWiseById(id);
 
-        String new_content =
-                msg.printAndInputNewContent(current_wise.getContent(), scanner);
-        String new_author =
-                msg.printAndInputNewAuthor(current_wise.getAuthor(), scanner);
+        String newContent =
+                msg.printAndInputNewContent(currentWise.getContent(), scanner);
+        String newAuthor =
+                msg.printAndInputNewAuthor(currentWise.getAuthor(), scanner);
 
-        service.modifyWise(id, new_content, new_author);
+        service.modifyWise(id, newContent, newAuthor);
     }
     public void buildJson() throws IOException {
         service.buildJson(); msg.printJsonBuildCompleted();

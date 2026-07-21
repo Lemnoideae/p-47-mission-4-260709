@@ -5,17 +5,17 @@ import java.util.Scanner;
 
 public class App {
     private final WiseSayingController controller;
-    private boolean is_app_working;
+    private boolean isAppWorking;
 
     public void run() throws IOException {
         controller.msg.printEntranceMessage();
-        while (is_app_working) loopStart();
+        while (isAppWorking) loopStart();
     }
     public App(Scanner scanner) throws IOException {
-        is_app_working = true;
+        isAppWorking = true;
         this.controller = new WiseSayingController(scanner,
                 new WiseSayingService(new WiseSayingRepository(
-                        new RegexPatterns().json_ptn,
+                        new RegexPatterns().jsonPattern,
                         "db/wiseSaying/lastId.txt",
                         "db/wiseSaying/data.json")));
     }
@@ -23,7 +23,7 @@ public class App {
     private void loopStart() throws IOException {
         final Rq rq = controller.printAndInputRequest();
         switch (rq.getCmd()) {
-            case EXIT: is_app_working = false; return;
+            case EXIT: isAppWorking = false; return;
             case ADD: controller.addWise(); break;
             case SHOW: controller.showList(rq); break;
             case REMOVE: controller.removeWise(rq.getIntParam("id")); break;

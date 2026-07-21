@@ -18,33 +18,33 @@ public class WiseSayingService {
     final WiseSaying getWiseById(int id) { return repository.getWiseById(id); }
     boolean isWiseContains(int id) { return repository.isWiseContains(id); }
 
-    int createWiseAndGetId(String new_content, String new_author) {
+    int createWiseAndGetId(String newContent, String newAuthor) {
         int id = repository.getNewIdNum();
-        repository.addWise(new WiseSaying(id, new_content, new_author));
+        repository.addWise(new WiseSaying(id, newContent, newAuthor));
         return id;
     }
 
     PageDto<WiseSaying> getPagedList(Rq rq) {
         String keyword = rq.getStringParam("keyword");
-        Predicate<WiseSaying> filter_condition =
+        Predicate<WiseSaying> filterCondition =
                 switch (rq.getStringParam("keywordType")) {
             case "content" -> wise -> wise.getContent().contains(keyword);
             case "author" -> wise -> wise.getAuthor().contains(keyword);
             default -> _ -> true;
         };
         List<WiseSaying> filtered_list = repository.getWiseMap().descendingMap().values()
-                        .stream().filter(filter_condition).toList();
+                        .stream().filter(filterCondition).toList();
 
-        final int total_wise = filtered_list.size();
-        final int current_pages = rq.getIntParam("page");
-        final int max_pages = updateMaxPages(total_wise);
+        final int totalWise = filtered_list.size();
+        final int currentPages = rq.getIntParam("page");
+        final int maxPages = updateMaxPages(totalWise);
 
-        List<WiseSaying> paged_list = filtered_list.stream()
-                .skip((long) (current_pages - 1) * WISES_PER_PAGE)
+        List<WiseSaying> pagedList = filtered_list.stream()
+                .skip((long) (currentPages - 1) * WISES_PER_PAGE)
                 .limit(WISES_PER_PAGE)
                 .toList();
 
-        return new PageDto<>(paged_list, current_pages, max_pages);
+        return new PageDto<>(pagedList, currentPages, maxPages);
     }
     String getListString(List<WiseSaying> wise_list) {
         sb.setLength(0);
@@ -53,8 +53,8 @@ public class WiseSayingService {
     }
 
     void removeWise(int id) { repository.removeWise(id); }
-    void modifyWise(int id, String new_content, String new_author) {
-        repository.modifyWise(id, new_content, new_author);
+    void modifyWise(int id, String newContent, String newAuthor) {
+        repository.modifyWise(id, newContent, newAuthor);
     }
     void buildJson() throws IOException {
         if (repository.isWiseMapEmpty()) {
@@ -84,7 +84,7 @@ public class WiseSayingService {
         repository.buildJson(sb.toString());
     }
 
-    private int updateMaxPages(int total_wises) {
-        return Math.max(1, (int) Math.ceil((double) total_wises / WISES_PER_PAGE));
+    private int updateMaxPages(int totalWises) {
+        return Math.max(1, (int) Math.ceil((double) totalWises / WISES_PER_PAGE));
     }
 }

@@ -4,20 +4,20 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 
 public class Rq {
-    private final RegexPatterns regex_ptns;
+    private final RegexPatterns regexPatterns;
     private Command cmd;
     private HashMap<String, String> params;
 
-    public Rq(String input_str) {
-        this.regex_ptns = new RegexPatterns();
-        String[] args = input_str.split("\\?");
+    public Rq(String inputStr) {
+        this.regexPatterns = new RegexPatterns();
+        String[] args = inputStr.split("\\?");
 
         this.cmd = Command.changeNameToCmd(args[0]);
         if(cmd.isCmdErrored()) return;
 
         if (args.length >= 2) {
-            String[] args_without_cmd = args[1].split("&");
-            this.params = getParams(args_without_cmd);
+            String[] argsWithoutCmd = args[1].split("&");
+            this.params = getParams(argsWithoutCmd);
         }
     }
 
@@ -38,17 +38,17 @@ public class Rq {
         };
     }
 
-    private String getStringParam(String key, String DEFAULT_VALUE) {
-        if (params != null) return params.getOrDefault(key, DEFAULT_VALUE);
-        return DEFAULT_VALUE;
+    private String getStringParam(String key, String defaultValue) {
+        if (params != null) return params.getOrDefault(key, defaultValue);
+        return defaultValue;
     }
     private HashMap<String, String> getParams(String[] args) {
-        HashMap<String, String> new_params = new HashMap<>();
+        HashMap<String, String> newParams = new HashMap<>();
 
         for (String arg : args) {
-            for (String key : regex_ptns.getKeyList()) {
-                Matcher matcher = regex_ptns.getPatternMatcher(key, arg);
-                boolean isMapContainsKey = new_params.containsKey(key);
+            for (String key : regexPatterns.getKeyList()) {
+                Matcher matcher = regexPatterns.getPatternMatcher(key, arg);
+                boolean isMapContainsKey = newParams.containsKey(key);
                 var founded = matcher.find();
 
                 if (isMapContainsKey && founded) {
@@ -56,9 +56,9 @@ public class Rq {
                     return null;
                 }
                 if (!isMapContainsKey && founded)
-                    new_params.put(matcher.group(1), matcher.group(2));
+                    newParams.put(matcher.group(1), matcher.group(2));
             }
         }
-        return new_params;
+        return newParams;
     }
 }

@@ -9,62 +9,62 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class WiseSayingRepository {
-    private final TreeMap<Integer, WiseSaying> wise_map;
-    private Integer new_id_num;
-    private final Path last_id_path;
-    private final Path data_path;
+    private final TreeMap<Integer, WiseSaying> wiseMap;
+    private Integer newIdNum;
+    private final Path lastIdPath;
+    private final Path dataPath;
 
-    public WiseSayingRepository(Pattern json_ptn, String last_id_path, String data_path)
+    public WiseSayingRepository(Pattern jsonPattern, String lastIdPath, String dataPath)
             throws IOException {
-        this.last_id_path = Path.of(last_id_path);
-        this.data_path = Path.of(data_path);
+        this.lastIdPath = Path.of(lastIdPath);
+        this.dataPath = Path.of(dataPath);
         checkDbPath();
 
-        this.new_id_num = 1 + Integer.parseInt(Files.readString(this.last_id_path));
-        String json_str = Files.readString(this.data_path);
+        this.newIdNum = 1 + Integer.parseInt(Files.readString(this.lastIdPath));
+        String jsonStr = Files.readString(this.dataPath);
 
-        if (new_id_num == 1 || json_str.equals("[]"))
-            this.wise_map = new TreeMap<>();
+        if (newIdNum == 1 || jsonStr.equals("[]"))
+            this.wiseMap = new TreeMap<>();
         else
-            this.wise_map = initMap(json_ptn, json_str);
+            this.wiseMap = initMap(jsonPattern, jsonStr);
     }
-    public int getNewIdNum() { return new_id_num; }
-    public final WiseSaying getWiseById(int id) { return wise_map.get(id); }
-    public TreeMap<Integer, WiseSaying> getWiseMap() { return wise_map; }
+    public int getNewIdNum() { return newIdNum; }
+    public final WiseSaying getWiseById(int id) { return wiseMap.get(id); }
+    public TreeMap<Integer, WiseSaying> getWiseMap() { return wiseMap; }
 
-    public boolean isWiseContains(int id) { return wise_map.containsKey(id); }
-    public boolean isWiseMapEmpty() { return wise_map.isEmpty(); }
+    public boolean isWiseContains(int id) { return wiseMap.containsKey(id); }
+    public boolean isWiseMapEmpty() { return wiseMap.isEmpty(); }
 
-    public void addWise(WiseSaying new_wise) {
-        wise_map.put(new_id_num, new_wise);
-        new_id_num++;
+    public void addWise(WiseSaying newWise) {
+        wiseMap.put(newIdNum, newWise);
+        newIdNum++;
     }
     public void removeWise(int id) {
-        wise_map.remove(id);
+        wiseMap.remove(id);
     }
 
-    public void modifyWise(int id, String new_content, String new_author) {
-        wise_map.get(id).modifyWise(new_content, new_author);
+    public void modifyWise(int id, String newContent, String newAuthor) {
+        wiseMap.get(id).modifyWise(newContent, newAuthor);
     }
-    public void buildJson(String json_str) throws IOException {
-        Files.writeString(last_id_path, wise_map.lastKey().toString());
-        Files.writeString(data_path, json_str);
+    public void buildJson(String jsonStr) throws IOException {
+        Files.writeString(lastIdPath, wiseMap.lastKey().toString());
+        Files.writeString(dataPath, jsonStr);
     }
 
     private void checkDbPath() throws FileNotFoundException {
-        if (Files.notExists(last_id_path))
-            throw new FileNotFoundException(last_id_path.toString());
-        if (Files.notExists(data_path))
-            throw new FileNotFoundException(data_path.toString());
+        if (Files.notExists(lastIdPath))
+            throw new FileNotFoundException(lastIdPath.toString());
+        if (Files.notExists(dataPath))
+            throw new FileNotFoundException(dataPath.toString());
     }
-    private TreeMap<Integer, WiseSaying> initMap(Pattern json_ptn, String json_str) {
-        Matcher json_matcher = json_ptn.matcher(json_str);
+    private TreeMap<Integer, WiseSaying> initMap(Pattern jsonPattern, String jsonStr) {
+        Matcher jsonMatcher = jsonPattern.matcher(jsonStr);
 
         TreeMap<Integer, WiseSaying> map = new TreeMap<>();
-        while (json_matcher.find()) {
-            final int id = Integer.parseInt(json_matcher.group(1));
-            final String content = json_matcher.group(2);
-            final String author = json_matcher.group(3);
+        while (jsonMatcher.find()) {
+            final int id = Integer.parseInt(jsonMatcher.group(1));
+            final String content = jsonMatcher.group(2);
+            final String author = jsonMatcher.group(3);
 
             map.put(id, new WiseSaying(id, content, author));
         }

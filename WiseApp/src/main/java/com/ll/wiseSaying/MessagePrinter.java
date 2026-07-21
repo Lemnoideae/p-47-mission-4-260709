@@ -3,14 +3,14 @@ package com.ll.wiseSaying;
 import java.util.Scanner;
 
 public class MessagePrinter {
-    public void printPageLine(int current_page, int total_pages) {
+    public void printPageLine(int currentPage, int totalPages) {
         System.out.print("페이지 : ");
-        if (current_page == 1) System.out.print("[1]");
+        if (currentPage == 1) System.out.print("[1]");
         else System.out.print("1");
 
-        for (int page = 2; page <= total_pages; page++) {
+        for (int page = 2; page <= totalPages; page++) {
             System.out.print(" / ");
-            if (current_page == page) System.out.print("[" + page + "]");
+            if (currentPage == page) System.out.print("[" + page + "]");
             else System.out.print(page);
         }
         System.out.println();
@@ -21,12 +21,12 @@ public class MessagePrinter {
         printKeyword(rq.getStringParam("keyword"));
         printOneDashLine();
     }
-    public void printListString(PageDto<WiseSaying> page_dto, String list_str) {
+    public void printListString(PageDto<WiseSaying> pageDto, String listStr) {
         printAttributes();
         printOneDashLine();
-        System.out.print(list_str);
+        System.out.print(listStr);
         printOneDashLine();
-        printPageLine(page_dto.current_pages(), page_dto.max_pages());
+        printPageLine(pageDto.currentPages(), pageDto.maxPages());
     }
 
     public void printEntranceMessage() { System.out.println("== 명언 앱 =="); }
