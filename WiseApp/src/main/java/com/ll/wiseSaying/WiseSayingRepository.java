@@ -4,7 +4,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collection;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -25,7 +28,14 @@ public class WiseSayingRepository {
     }
     public int getNewIdNum() { return newIdNum; }
     public final WiseSaying getWiseById(int id) { return wiseMap.get(id); }
-    public TreeMap<Integer, WiseSaying> getWiseMap() { return wiseMap; }
+    public int getWiseMapSize() { return wiseMap.size(); }
+
+    public Collection<WiseSaying> getWiseCollection() { return wiseMap.values(); }
+    public List<WiseSaying> getFilteredWiseListByIdDesc(
+            Predicate<WiseSaying> filter) {
+        return wiseMap.descendingMap().values().stream()
+                .filter(filter).toList();
+    }
 
     public boolean doesMapContainWise(int id) { return wiseMap.containsKey(id); }
     public boolean isWiseMapEmpty() { return wiseMap.isEmpty(); }
@@ -52,6 +62,7 @@ public class WiseSayingRepository {
         if (Files.notExists(dataPath))
             throw new FileNotFoundException(dataPath.toString());
     }
+
     private TreeMap<Integer, WiseSaying> initMap(Pattern jsonPattern)
             throws IOException {
         TreeMap<Integer, WiseSaying> map = new TreeMap<>();

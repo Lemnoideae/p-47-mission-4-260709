@@ -32,8 +32,9 @@ public class WiseSayingService {
             case "author" -> wise -> wise.getAuthor().contains(keyword);
             default -> _ -> true;
         };
-        List<WiseSaying> filteredList = repository.getWiseMap().descendingMap().values()
-                        .stream().filter(filterCondition).toList();
+
+        List<WiseSaying> filteredList =
+                repository.getFilteredWiseListByIdDesc(filterCondition);
 
         final int totalWise = filteredList.size();
         final int currentPages = rq.getIntParam("page");
@@ -63,10 +64,10 @@ public class WiseSayingService {
         }
         sb.setLength(0);
         int idx = 0;
-        int size = repository.getWiseMap().size();
+        int size = repository.getWiseMapSize();
 
         sb.append("[\n");
-        for (WiseSaying wise : repository.getWiseMap().values()) {
+        for (WiseSaying wise : repository.getWiseCollection()) {
             final String id = Integer.toString(wise.getId());
             final String content = wise.getContent();
             final String author = wise.getAuthor();
